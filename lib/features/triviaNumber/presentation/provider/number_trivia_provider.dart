@@ -31,7 +31,6 @@ class NumberTriviaProvider extends ChangeNotifier {
     }, (integer) async {
       triviaState = Loading();
       notifyListeners();
-      print("---------------exx");
       final failureOrTrivia =
           await getConcreteNumberTrivia(Params(number: integer));
       _eitherLoadedOrErrorState(failureOrTrivia);
@@ -41,7 +40,6 @@ class NumberTriviaProvider extends ChangeNotifier {
   void eitherFailureOrRandomTrivia() async {
     triviaState = Loading();
     notifyListeners();
-    print("---------------exx");
     final failureOrTrivia = await getRandomNumberTrivia(Noparams());
     _eitherLoadedOrErrorState(failureOrTrivia);
   }
@@ -51,12 +49,10 @@ class NumberTriviaProvider extends ChangeNotifier {
   ) {
     failureOrTrivia.fold(
       (failure) {
-        print((triviaState as Error).message);
         triviaState = Error(message: _mapFailureToMessage(failure));
         notifyListeners();
       },
       (trivia) {
-        print((triviaState as Loaded).trivia);
         triviaState = Loaded(trivia: trivia);
         notifyListeners();
       },
